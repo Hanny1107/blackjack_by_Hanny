@@ -29,24 +29,30 @@ def spiel_starten():
             else:
                 break
 
-        # Auswertung
+        # Anzeige der finalen Hand (auch bei über 21)
         spieler_score = berechne_punkte(spieler_hand)
+        print(f"\nDeine finale Hand: {spieler_hand} (Score: {spieler_score})")
+
+        # Auswertung
         if spieler_score <= 21:
             while berechne_punkte(dealer_hand) < 17:
                 dealer_hand.append(deck.pop())
 
             dealer_score = berechne_punkte(dealer_hand)
             print(f"Dealer Hand: {dealer_hand} (Score: {dealer_score})")
+
+    
             ergebnis = prüfe_gewinner(spieler_score, dealer_score)
         else:
+            print("Über 21! VERZOCKT!.")
             ergebnis = "verloren"
 
         # Konto-Logik
         if ergebnis == "sieg":
-            print(f"Sieg! Du gewinnst {einsatz}. Der Dealer freut sich über Trinkgeld")
+            print(f"Sieg! Du gewinnst {einsatz}. Der Dealer freut sich über Trinkgeld.")
             konto += einsatz
         elif ergebnis == "verloren":
-            print("Verloren! Der Einsatz ist weg. Schade, für dich :/")
+            print("Verloren! Der Einsatz ist weg. Schade für dich :/")
             konto -= einsatz
         else:
             print("Unentschieden! Einsatz zurück.")
